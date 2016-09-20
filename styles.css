@@ -1,0 +1,7 @@
+/**
+ * Buttons to Update/Cancel editing blogroll entry are hidden by default
+ */
+.update-blog,
+.cancel {
+  display: none;
+}

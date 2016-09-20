@@ -5,6 +5,7 @@
     <title>Backbone Blogroll</title>
     <!-- Stylesheets -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <div class="container">
@@ -31,12 +32,14 @@
 
     <!-- Templates -->
     <script type="text/template" class="blogs-list-template">
-      <td><span class="this.author"><%= author %></span></td>
-      <td><span class="this.title"><%= title %></span></td>
-      <td><span class="this.url"><%= url %></span></td>
+      <td><span class="author"><%= author %></span></td>
+      <td><span class="title"><%= title %></span></td>
+      <td><span class="url"><%= url %></span></td>
       <td>
         <button class="btn btn-warning edit-blog">Edit</button>
         <button class="btn btn-danger delete-blog">Delete</button>
+        <button class="btn btn-success update-blog">Update</button>
+        <button class="btn btn-danger cancel">Cancel</button>
       </td>
     </script>
 
