@@ -28,14 +28,16 @@ var BlogView = Backbone.View.extend({
   model: new Blog(),
   tagName: 'tr', // this will be referred as $el
   initialize: function() {
-    var blogsListTemplate = $('#blogs-list-template').html();
+    var blogsListTemplate = $('.blogs-list-template').html();
     // uses underscore template
     this.template = _.template(blogsListTemplate);
   },
   render: function() {
     this.$el.html(
-      this.template({ model: this.model.toJSON() })
+      this.template(this.model.toJSON())
     );
+
+    return this;
   }
 });
 
@@ -44,14 +46,34 @@ var BlogsView = Backbone.View.extend({
   model: blogs,
   el: $('.blogs-list'),
   initialize: function() {
-    this.model.on('add', this.render(), this);
+    this.model.on('add', this.render, this);
   },
   render: function() {
     var self = this;
+
     this.$el.html('');
-    _.each(this.model, function(blog) {
+    _.each(this.model.toArray(), function(blog) {
       var newBlogView = new BlogView({ model: blog });
       self.$el.append(newBlogView.render().$el);
     });
+
+    return this;
   }
+});
+
+var blogsView = new BlogsView();
+
+$(document).ready(function() {
+  // Add event listener to 'Add' button
+  $('.add-blog').on('click', function() {
+    // Create new blogroll entry
+    var blog = new Blog({
+      author: $('.author-input').val(),
+      title: $('.title-input').val(),
+      url: $('.url-input').val()
+    });
+    console.log("New blogroll entry added!", blog.toJSON());
+    // Add new blog entry to the collection of `blogs`
+    blogs.add(blog);
+  });
 });
