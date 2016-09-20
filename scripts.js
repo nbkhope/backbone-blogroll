@@ -75,5 +75,19 @@ $(document).ready(function() {
     console.log("New blogroll entry added!", blog.toJSON());
     // Add new blog entry to the collection of `blogs`
     blogs.add(blog);
+
+    // Clear the form
+    clearForm();
   });
 });
+
+/**
+ * Clears up all the fields in the new blogroll entry form
+ */
+function clearForm() {
+  var fields = ['.author-input', '.title-input', '.url-input'];
+
+  fields.forEach(function(field) {
+    $(field).val('');
+  });
+}
