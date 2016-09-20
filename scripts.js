@@ -34,7 +34,9 @@ var BlogView = Backbone.View.extend({
   },
   events: {
     'click .edit-blog': 'edit',
-    'click .update-blog': 'update'
+    'click .update-blog': 'update',
+    'click .cancel': 'cancel',
+    'click .delete-blog': 'delete'
   },
   edit: function() {
     var initialButtons = ['.edit-blog', '.delete-blog'];
@@ -61,7 +63,25 @@ var BlogView = Backbone.View.extend({
     console.log("Entry to edit is ", entry);
   },
   update: function() {
+    this.model.set({
+      author: this.$('.author-update').val(),
+      title: this.$('.title-update').val(),
+      url: this.$('.url-update').val()
+    });
+  },
+  delete: function() {
+    this.model.destroy();
+  },
+  cancel: function() {
+    // var buttons = ['edit-blog', 'delete-blog', 'update-blog', 'cancel'];
+    // buttons.forEach(function(buttonClass) {
+    //   // what is hidden becomes shown; what is shown becomes hidden
+    //   this.$('.' + buttonClass).toggle();
+    // }, this);
 
+    //blogsView.render();
+
+    this.render();
   },
   render: function() {
     this.$el.html(
@@ -78,6 +98,8 @@ var BlogsView = Backbone.View.extend({
   el: $('.blogs-list'),
   initialize: function() {
     this.model.on('add', this.render, this);
+    this.model.on('change', this.render, this);
+    this.model.on('remove', this.render, this);
   },
   render: function() {
     var self = this;
