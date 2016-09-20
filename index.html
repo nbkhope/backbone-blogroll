@@ -19,8 +19,22 @@
             <th>Action</th>
           </tr>
         </thead>
+        <tbody class="blogs-list">
+
+        </tbody>
       </table>
     </div>
+
+    <!-- Templates -->
+    <script type="text/template" id="blogs-list-template">
+      <td><span class="author"><%= author %></span></td>
+      <td><span class="title"><%= title %></span></td>
+      <td><span class="url"><%= url %></span></td>
+      <td>
+        <button class="btn btn-warning edit-blog">Edit</button>
+        <button class="btn btn-danger delete-blog">Delete</button>
+      </td>
+    </script>
 
     <!-- Scripts -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
