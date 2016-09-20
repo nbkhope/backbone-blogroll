@@ -32,6 +32,37 @@ var BlogView = Backbone.View.extend({
     // uses underscore template
     this.template = _.template(blogsListTemplate);
   },
+  events: {
+    'click .edit-blog': 'edit',
+    'click .update-blog': 'update'
+  },
+  edit: function() {
+    var initialButtons = ['.edit-blog', '.delete-blog'];
+    var buttons = ['.update-blog', '.cancel'];
+
+    for (var index in initialButtons) {
+      this.$(initialButtons[index]).hide();
+      this.$(buttons[index]).show();
+    }
+
+    var entryAttributes = ['author', 'title', 'url'];
+    var entry = {};
+
+    // Build the entry object as such: { author: ..., title: ..., url: ... }
+    entryAttributes.forEach(function(attribute) {
+      var elem = this.$('.' + attribute);
+      entry[attribute] = elem.html();
+
+      elem.html(
+        '<input type="text" class="form-control ' + attribute + '-update"  value="' + entry[attribute] + '">'
+      );
+    }, this); // don't forget to set the context of `this` inside forEach
+
+    console.log("Entry to edit is ", entry);
+  },
+  update: function() {
+
+  },
   render: function() {
     this.$el.html(
       this.template(this.model.toJSON())
