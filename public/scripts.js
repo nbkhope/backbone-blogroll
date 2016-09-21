@@ -142,8 +142,21 @@ $(document).ready(function() {
     // Add new blog entry to the collection of `blogs`
     blogs.add(blog);
 
-    // Clear the form
-    clearForm();
+    // Save new entry to the backend
+    blog.save(null, {
+      success: function(response) {
+        console.log(response);
+        
+        // Clear the form
+        clearForm();
+      },
+      error: function() {
+        console.log("Failed to save blogroll entry");
+        blogs.pop(); // remove thing you tried to add. . .
+      }
+    });
+
+
   });
 });
 
