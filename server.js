@@ -1,6 +1,7 @@
 // Import modules
 var express = require('express');
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
 
 // Make the app
 var app = express();
@@ -32,6 +33,8 @@ myBlog.save();
 // Set up simple static server at /public
 app.use(express.static(__dirname + '/public'));
 
+app.use(bodyParser.json());
+
 // API Endpoints
 app.get('/api/blogs', function(req, res) {
   Blog.find(function(err, docs) {
@@ -39,6 +42,19 @@ app.get('/api/blogs', function(req, res) {
       console.log('Received GET for', item);
     });
     res.send(docs);
+  });
+});
+
+app.post('/api/blogs', function(req, res) {
+  var blog = new Blog(req.body); // need bodyParser for req.body
+
+  console.log("Received a POST request");
+  for (var key in req.body) {
+    console.log(key + ': ' + req.body[key]);
+  }
+
+  blog.save(function(err, doc) {
+    res.send(doc);
   });
 });
 
