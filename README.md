@@ -2,14 +2,22 @@
 
 ## Installation
 
-First install all dependencies using Bower:
+Install all Node dependencies:
+
+```
+npm install
+```
+
+Then, install all Bower dependencies:
 
 ```
 bower install
 ```
 
-Then open up `index.html` in your favorite browser, e.g.
+Run the server:
 
 ```
-google-chrome index.html
+npm start
 ```
+
+The app will be available at <http://localhost:8080>
