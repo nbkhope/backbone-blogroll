@@ -17,7 +17,9 @@ console.log(blog.toJSON());
 console.log(otherBlog.toJSON());
 
 // Backbone collection
-var Blogs = Backbone.Collection.extend({});
+var Blogs = Backbone.Collection.extend({
+  url: 'http://localhost:8080/api/blogs'
+});
 
 var blogs = new Blogs([blog, otherBlog]);
 
@@ -100,6 +102,17 @@ var BlogsView = Backbone.View.extend({
     this.model.on('add', this.render, this);
     this.model.on('change', this.render, this);
     this.model.on('remove', this.render, this);
+
+    this.model.fetch({
+      success: function(response) {
+        _.each(response.toJSON(), function(item) {
+          console.log('Got', item);
+        })
+      },
+      error: function() {
+        console.log("Problem loading blogs from backend API . . .");
+      }
+    })
   },
   render: function() {
     var self = this;

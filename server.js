@@ -32,6 +32,16 @@ myBlog.save();
 // Set up simple static server at /public
 app.use(express.static(__dirname + '/public'));
 
+// API Endpoints
+app.get('/api/blogs', function(req, res) {
+  Blog.find(function(err, docs) {
+    docs.forEach(function(item) {
+      console.log('Received GET for', item);
+    });
+    res.send(docs);
+  });
+});
+
 // Server port
 var PORT = 8080;
 
